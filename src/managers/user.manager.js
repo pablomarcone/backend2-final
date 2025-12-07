@@ -11,7 +11,7 @@ export class UserManager {
     }
 
     async updateUser(user) {
-        return await user.save();
+        return await userModel.findOneAndUpdate({ email: user.email }, user).lean();
     }
 
     async deleteUser(email) {

@@ -1,7 +1,7 @@
 export class TicketService {
-    constructor(ticketRepository, cartRepository, productRepository, userRepository) {
+    constructor(ticketRepository, cartService, productRepository, userRepository) {
         this.ticketRepository = ticketRepository;
-        this.cartRepository = cartRepository;
+        this.cartService = cartService;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
     }
@@ -11,7 +11,7 @@ export class TicketService {
             if (!user) {
                 throw new Error("Usuario no encontrado");
             }
-            const cart = await this.cartRepository.getCartById(cartId);
+            const cart = await this.cartService.getCartById(cartId);
             if (!cart) {
                 throw new Error("Carrito no encontrado");
             }
@@ -30,21 +30,22 @@ export class TicketService {
                 }
                 totalAmount += product.price * cartItem.quantity;
                 ticketProducts.push({
-                    product: cartItem.product.toString(),
+                    product: cartItem.product._id.toString(),
                     unitPrice: product.price,
                     quantity: cartItem.quantity,
                 });
             }
             await Promise.all(
-                ticketProducts.map(product =>
+                cart.products.map(p =>
                     this.productRepository.updateProductStock(
-                        product.product.toString(),
-                        product.quantity
+                        p.product._id.toString(),
+                        p.quantity
                     )
                 )
             );
+            await this.cartService.deleteCart(cartId);
             const ticket = await this.ticketRepository.createTicket({
-                user: user.id,
+                user: user._id.toString(),
                 totalAmount: totalAmount,
                 products: ticketProducts,
             });

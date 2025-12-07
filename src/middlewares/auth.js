@@ -8,7 +8,7 @@ export const currentAuth = passport.authenticate('current', {
 
 export const roleAuth = (roles = []) => {
     return (req, res, next) => {
-        console.log(req.user)
+
         if (!Array.isArray(roles)) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(500).json({ error: `Error en la configuración de roles` })

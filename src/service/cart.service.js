@@ -48,7 +48,7 @@ export class CartService {
             if (!product) {
                 throw new Error("Producto no encontrado");
             }
-            const cartProduct = cart.products?.find(p => p.product.toString() === productId);
+            const cartProduct = cart.products?.find(p => p.product._id.toString() === productId);
             if (cartProduct) {
                 cartProduct.quantity += 1;
             } else {
@@ -70,7 +70,7 @@ export class CartService {
             if (!product) {
                 throw new Error("Producto no encontrado");
             }
-            const cartProduct = cart.products?.find(p => p.product.toString() === productId);
+            const cartProduct = cart.products?.find(p => p.product._id.toString() === productId);
             if (cartProduct) {
                 cartProduct.quantity = quantity;
             } else {
@@ -88,7 +88,7 @@ export class CartService {
             if (!cart) {
                 throw new Error("Carrito no encontrado");
             }
-            cart.products = cart.products.filter(p => p.product.toString() !== productId);
+            cart.products = cart.products.filter(p => p.product._id.toString() !== productId);
             return await this.cartRepository.updateCart(cartId, cart.products);
         } catch (error) {
             throw new Error("Error al eliminar el producto del carrito: " + error);

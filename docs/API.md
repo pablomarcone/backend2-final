@@ -1,6 +1,89 @@
 # SERVIDOR ECOMMERCE
 ---
 
+
+## ENDPOINTS SESSIONS
+---
+
+### 1. Agregar un usuario: POST /api/sessions/register
+- **Método**: POST
+- **URL**: `http://localhost:8080/api/sessions/register`
+- **Código**: 201 Created
+- **Body**:
+```json
+{
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "email@dominio.com",
+    "age": 99, (opcional)
+    "password": "password"
+}
+```
+
+
+
+---
+
+### 2. Login: POST /api/sessions/login
+- **Método**: POST
+- **URL**: `http://localhost:8080/api/sessions/login`
+- **Código**: 200 OK
+- **Body**:
+```json
+{
+    "email": "email@dominio.com",
+    "password": "password"
+}
+```
+
+
+
+---
+
+### 3. Actualizar usuario logueado: PUT /api/sessions/update
+- **Método**: PUT
+- **URL**: `http://localhost:8080/api/sessions/update`
+- **Código**: 200 OK
+- **Body**:
+```json
+{
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "age": 99,
+    "password": "password",
+    "cart": "68dbed183e06bf9fc2c2d904"
+}
+```
+
+
+
+---
+
+### 4. Eliminar usuario logueado: DELETE /api/sessions/delete
+- **Método**: DELETE
+- **URL**: `http://localhost:8080/api/sessions/delete`
+- **Código**: 200 OK
+
+
+
+---
+
+### 5. Información usuario logueado: GET /api/sessions/current
+- **Método**: GET
+- **URL**: `http://localhost:8080/api/sessions/current`
+- **Código**: 200 OK
+
+
+
+---
+
+### 6. Deslogueo usuario: GET /api/sessions/logout
+- **Método**: GET
+- **URL**: `http://localhost:8080/api/sessions/logout`
+- **Código**: 200 OK
+
+
+
 ## ENDPOINTS PRODUCTOS
 ---
 
@@ -157,10 +240,10 @@
   "status": "success",
   "carts": [
     {
-      "_id": "68dbea1e3e06bf9fc2c2d8e7",
+      "_id": "6934ed64327f11b3001e9adf",
       "products": [
         {
-          "product": "68db48edc0168666e65911e6",
+          "product": "68db48edc0168666e6591218",
           "quantity": 1
         }
       ]
@@ -182,11 +265,11 @@
 {
   "status": "success",
   "cart": {
-    "_id": "68dbea1e3e06bf9fc2c2d8e7",
+    "_id": "6934ed64327f11b3001e9adf",
     "products": [
       {
         "product": {
-          "_id": "68db48edc0168666e65911e6",
+          "_id": "68db48edc0168666e6591218",
           "title": "Titulo",
           "description": "Descripcion",
           "code": "Codigo",
@@ -215,11 +298,11 @@
 ```json
 [
   {
-    "product": "68db48edc0168666e65911e6",
+    "product": "68db48edc0168666e6591218",
     "quantity": 2
   },
   {
-    "product": "68db48edc0168666e65911ee",
+    "product": "68db4923c0168666e65913d6",
     "quantity": 1
   }
 ]
@@ -231,15 +314,15 @@
     "cart": {
         "products": [
             {
-                "product": "68db48edc0168666e65911e6",
+                "product": "68db48edc0168666e6591218",
                 "quantity": 2
             },
             {
-                "product": "68db48edc0168666e65911ee",
+                "product": "68db4923c0168666e65913d6",
                 "quantity": 1
             }
         ],
-        "_id": "68dbed183e06bf9fc2c2d904", (guardar id para próximas pruebas)
+        "_id": "6934ed64327f11b3001e9adf", (guardar id para próximas pruebas)
         "__v": 0
     }
 }
@@ -251,14 +334,14 @@
 
 ### 4. Agregar producto a carrito existente: POST /api/carts/:cid/products/:pid
 - **Método**: POST
-- **URL**: `http://localhost:8080/api/carts/68dbed183e06bf9fc2c2d904/products/68db48edc0168666e65911f0` (usar id prueba anterior)
+- **URL**: `http://localhost:8080/api/carts/6934ed64327f11b3001e9adf/products/68db48edc0168666e65911f0` (usar id prueba anterior)
 - **Código**: 201 Created
 - **Respuesta Esperada**: Array de productos contenidos en el carrito.
 ```json
 {
     "status": "success",
     "cart": {
-        "_id": "68dbed183e06bf9fc2c2d904",
+        "_id": "6934ed64327f11b3001e9adf",
         "products": [
             {
                 "product": "68db48edc0168666e65911e6",
@@ -284,7 +367,7 @@
 
 ### 5. Actualizar productos en carrito: PUT /api/carts/:cid
 - **Método**: PUT
-- **URL**: `http://localhost:8080/api/carts/68dbed183e06bf9fc2c2d904` (usar id prueba anterior)
+- **URL**: `http://localhost:8080/api/carts/6934ed64327f11b3001e9adf` (usar id prueba anterior)
 - **Código**: 200 OK
 - **Body**:
 ```json
@@ -304,7 +387,7 @@
 {
     "status": "success",
     "cart": {
-        "_id": "68dbed183e06bf9fc2c2d904",
+        "_id": "6934ed64327f11b3001e9adf",
         "products": [
             {
                 "product": "68db4923c0168666e6591444",
@@ -326,7 +409,7 @@
 
 ### 6. Actualizar cantidad de un producto en carrito: PUT /api/carts/:cid/products/:pid
 - **Método**: PUT
-- **URL**: `http://localhost:8080/api/carts/68dbed183e06bf9fc2c2d904/products/68db4923c0168666e6591444` (usar id prueba anterior)
+- **URL**: `http://localhost:8080/api/carts/6934ed64327f11b3001e9adf/products/68db4923c0168666e6591444` (usar id prueba anterior)
 - **Código**: 200 OK
 - **Body**:
 ```json
@@ -339,7 +422,7 @@
 {
     "status": "success",
     "cart": {
-        "_id": "68dbed183e06bf9fc2c2d904",
+        "_id": "6934ed64327f11b3001e9adf",
         "products": [
             {
                 "product": "68db4923c0168666e6591444",
@@ -360,14 +443,14 @@
 
 ### 7. Eliminar un producto del carrito: DELETE /api/carts/:cid/products/:pid
 - **Método**: DELETE
-- **URL**: `http://localhost:8080/api/carts/68dbed183e06bf9fc2c2d904/products/68db4923c0168666e6591444` (usar id prueba anterior)
+- **URL**: `http://localhost:8080/api/carts/6934ed64327f11b3001e9adf/products/68db4923c0168666e6591444` (usar id prueba anterior)
 - **Código**: 200 OK
 - **Respuesta Esperada**: Array de productos contenidos en el carrito.
 ```json
 {
     "status": "success",
     "cart": {
-        "_id": "68dbed183e06bf9fc2c2d904",
+        "_id": "6934ed64327f11b3001e9adf",
         "products": [
             {
                 "product": "68db4923c0168666e6591504",
@@ -385,96 +468,56 @@
 
 ### 8. Eliminar todos los productos de un carrito: DELETE /api/carts/:cid
 - **Método**: DELETE
-- **URL**: `http://localhost:8080/api/carts/68dbed183e06bf9fc2c2d904` (usar id prueba anterior)
+- **URL**: `http://localhost:8080/api/carts/6934ed64327f11b3001e9adf` (usar id prueba anterior)
 - **Código**: 200 OK
 - **Respuesta Esperada**: Objeto carrito con array de productos vacío.
 ```json
 {
     "status": "success",
     "cart": {
-        "_id": "68dbed183e06bf9fc2c2d904",
+        "_id": "6934ed64327f11b3001e9adf",
         "products": [],
         "__v": 1
     }
 }
 ```
 
-## ENDPOINTS SESSIONS
+
+---
+## ENDPOINTS TICKETS
 ---
 
-### 1. Agregar un usuario: POST /api/sessions/register
+
+### 3. Crear ticket desde carrito: POST /api/tickets/:cid
 - **Método**: POST
-- **URL**: `http://localhost:8080/api/sessions/register`
+- **URL**: `http://localhost:8080/api/tickets/6935030b9ecb7a0fd7851c60`
 - **Código**: 201 Created
-- **Body**:
+- **Respuesta Esperada**: Datos del usuario, con array de productos contenidos en el ticket.
 ```json
 {
-    "first_name": "Nombre",
-    "last_name": "Apellido",
-    "email": "email@dominio.com",
-    "age": 99, (opcional)
-    "password": "password"
+    "status": "success",
+    "ticket": {
+        "user": "6934a16d0f4339385b4092c1",
+        "totalAmount": 999,
+        "products": [
+            {
+                "product": "6934de2d1cc599c1a323ccff",
+                "quantity": 1,
+                "unitPrice": 333
+            },
+            {
+                "product": "6934de3f1cc599c1a323cd03",
+                "quantity": 1,
+                "unitPrice": 333
+            },
+            {
+                "product": "6934de4d1cc599c1a323cd07",
+                "quantity": 1,
+                "unitPrice": 333
+            }
+        ],
+        "_id": "693503ec9ecb7a0fd7851c9e",
+        "__v": 0
+    }
 }
 ```
-
-
-
----
-
-### 2. Login: POST /api/sessions/login
-- **Método**: POST
-- **URL**: `http://localhost:8080/api/sessions/login`
-- **Código**: 200 OK
-- **Body**:
-```json
-{
-    "email": "email@dominio.com",
-    "password": "password"
-}
-```
-
-
-
----
-
-### 3. Actualizar usuario logueado: PUT /api/sessions/update
-- **Método**: PUT
-- **URL**: `http://localhost:8080/api/sessions/update`
-- **Código**: 200 OK
-- **Body**:
-```json
-{
-    "first_name": "Nombre",
-    "last_name": "Apellido",
-    "age": 99,
-    "password": "password",
-    "cart": "68dbed183e06bf9fc2c2d904"
-}
-```
-
-
-
----
-
-### 4. Eliminar usuario logueado: DELETE /api/sessions/delete
-- **Método**: DELETE
-- **URL**: `http://localhost:8080/api/sessions/delete`
-- **Código**: 200 OK
-
-
-
----
-
-### 5. Información usuario logueado: GET /api/sessions/current
-- **Método**: GET
-- **URL**: `http://localhost:8080/api/sessions/current`
-- **Código**: 200 OK
-
-
-
----
-
-### 6. Deslogueo usuario: GET /api/sessions/logout
-- **Método**: GET
-- **URL**: `http://localhost:8080/api/sessions/logout`
-- **Código**: 200 OK

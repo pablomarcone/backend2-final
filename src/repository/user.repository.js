@@ -39,8 +39,7 @@ export class UserRepository {
             if (!delUser) {
                 throw new Error("Usuario no encontrado");
             }
-            delUser.is_deleted = true;
-            return await this.manager.deleteUser(delUser);
+            return await this.manager.deleteUser(email);
         } catch (error) {
             throw new Error("Error al eliminar el usuario: " + error);
         }

@@ -11,6 +11,7 @@ export const createTicket = async (req, res) => {
         const ticket = await ticketService.createTicket(email, cartId);
         res.status(201).json({ status: 'success', ticket: ticket });
     } catch (error) {
-        res.status(400).json({ status: 'error', message: 'Error al crear el ticket'});
+        console.log(error.message);
+        res.status(400).json({ status: 'error', message: 'Error al crear el ticket' });
     }
 }

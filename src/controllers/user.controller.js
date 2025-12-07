@@ -11,19 +11,25 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const user = {
-        id: req.user._id,
-        first_name: req.user.first_name,
-        last_name: req.user.last_name,
-        email: req.user.email,
-        age: req.user.age,
-        role: req.user.role
+    try {
+        const user = {
+            id: req.user._id,
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+            role: req.user.role
+        }
+        delete user.password;
+        const token = jwt.sign(user, config.jwt_secret, { expiresIn: config.jwt_expires_in });
+        res.cookie(config.jwt_cookie_name, token, { httpOnly: true, maxAge: config.jwt_expires_in * 1000 });
+        res.setHeader('Content-Type', 'application/json')
+        res.status(200).json({ message: `Login exitoso`, token: token, user: user })
+    } catch (error) {
+        console.log(error.message);
+        res.setHeader('Content-Type', 'application/json')
+        res.status(400).json({ message: `Error al iniciar sesión` })
     }
-    delete user.password;
-    const token = jwt.sign(user, config.jwt_secret, { expiresIn: config.jwt_expires_in });
-    res.cookie(config.jwt_cookie_name, token, { httpOnly: true, maxAge: config.jwt_expires_in * 1000 });
-    res.setHeader('Content-Type', 'application/json')
-    res.status(200).json({ message: `Login exitoso`, token: token, user: user })
 }
 
 export const updateUser = async (req, res) => {
@@ -39,6 +45,7 @@ export const updateUser = async (req, res) => {
         res.setHeader('Content-Type', 'application/json')
         res.status(200).json({ message: `Usuario actualizado`, user: user })
     } catch (error) {
+        console.log(error.message);
         res.setHeader('Content-Type', 'application/json')
         res.status(400).json({ message: `Error al actualizar el usuario` })
     }
@@ -51,6 +58,7 @@ export const deleteUser = async (req, res) => {
         res.setHeader('Content-Type', 'application/json')
         res.status(200).json({ message: `Usuario eliminado`, user: user })
     } catch (error) {
+        console.log(error.message);
         res.setHeader('Content-Type', 'application/json')
         res.status(400).json({ message: `Error al eliminar el usuario` })
     }
@@ -67,6 +75,7 @@ export const logout = async (req, res) => {
         res.setHeader('Content-Type', 'application/json')
         res.status(200).json({ message: `Logout exitoso` })
     } catch (error) {
+        console.log(error.message);
         res.setHeader('Content-Type', 'application/json')
         res.status(400).json({ message: `Error al cerrar sesión` })
     }

@@ -25,6 +25,7 @@ export class CartManager {
     }
 
     async deleteCart(id) {
+        const cart = await cartModel.findById(id);
         cart.products = [];
         return await cart.save();
     }

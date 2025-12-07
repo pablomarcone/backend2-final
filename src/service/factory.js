@@ -21,6 +21,6 @@ const cartService = new CartService(cartRepository, productRepository);
 
 const ticketManager = new TicketManager();
 const ticketRepository = new TicketRepository(ticketManager);
-const ticketService = new TicketService(ticketRepository, cartRepository, productRepository, userRepository);
+const ticketService = new TicketService(ticketRepository, cartService, productRepository, userRepository);
 
 export { userRepository, productRepository, cartService, ticketService };
