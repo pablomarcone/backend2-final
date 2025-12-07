@@ -1,0 +1,39 @@
+<div class="container mx-auto px-4 max-w-6xl">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Lista de Productos Estática</h1>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+
+        {{#each products}}
+        <div class="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                    <img src="{{thumbnail}}" alt="{{title}}" class="w-16 h-16 object-cover rounded-md border">
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">{{title}}</h3>
+                            <p class="text-sm text-gray-600 mb-2 line-clamp-1">{{description}}</p>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
+                                <span><strong>Código:</strong> {{code}}</span>
+                                <span><strong>Precio:</strong> ${{price}}</span>
+                                <span><strong>Stock:</strong> {{stock}}</span>
+                                <span><strong>Estado:</strong>
+                                    {{#if status}}
+                                    <span class="px-2 py-1 rounded text-xs bg-green-100 text-green-800">Activo</span>
+                                    {{else}}
+                                    <span class="px-2 py-1 rounded text-xs bg-red-100 text-red-800">Inactivo</span>
+                                    {{/if}}
+                                </span>
+                                <span><strong>Categoría:</strong> {{category}}</span>
+                                <span><strong>Id:</strong> {{_id}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>

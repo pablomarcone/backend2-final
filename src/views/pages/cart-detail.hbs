@@ -1,0 +1,133 @@
+<div class="container mx-auto px-4 max-w-6xl py-8">
+
+    <div class="mb-6">
+        <button onclick="history.back()" class="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Volver a la página anterior
+        </button>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Carrito de Compras</h1>
+                <p class="text-gray-600 mt-1">
+                    {{#if products.length}}
+                    {{products.length}} productos en tu carrito
+                    {{else}}
+                    Tu carrito está vacío
+                    {{/if}}
+                </p>
+            </div>
+            <div class="text-right">
+                <p class="text-sm text-gray-500">ID del Carrito</p>
+                <p class="font-mono text-gray-700">{{_id}}</p>
+            </div>
+        </div>
+    </div>
+
+    {{#if products.length}}
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Productos en el Carrito</h2>
+
+        <div class="space-y-4">
+            {{#each products}}
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div class="flex items-start space-x-4">
+
+                    <div class="flex-shrink-0">
+                        {{#if product.thumbnails.length}}
+                        {{#each product.thumbnails}}
+                        {{#if @first}}
+                        <img src="{{this}}" alt="{{../product.title}}"
+                            class="w-20 h-20 object-contain rounded-md border bg-white"
+                            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0zMCAzMEg1MFY1MEgzMFYzMFoiIGZpbGw9IiNEMUQ1REIiLz4KPHRleHQgeD0iNDAiIHk9IjY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOUNBM0FGIiBmb250LXNpemU9IjEwIj5TaW4gaW1hZ2VuPC90ZXh0Pgo8L3N2Zz4='">
+                        {{/if}}
+                        {{/each}}
+                        {{else}}
+                        <div class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center">
+                            <span class="text-gray-400 text-xs">Sin imagen</span>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-grow mr-4">
+                                <h3 class="font-semibold text-gray-800 text-lg">{{product.title}}</h3>
+                                <p class="text-sm text-gray-600 mb-3 line-clamp-1">{{product.description}}</p>
+
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
+                                    <span><strong>Código:</strong> {{product.code}}</span>
+                                    <span><strong>Precio Unitario:</strong> ${{product.price}}</span>
+                                    <span><strong>Categoría:</strong> {{product.category}}</span>
+                                    <span><strong>Estado:</strong>
+                                        {{#if product.status}}
+                                        <span
+                                            class="px-2 py-1 rounded text-xs bg-green-100 text-green-800">Activo</span>
+                                        {{else}}
+                                        <span class="px-2 py-1 rounded text-xs bg-red-100 text-red-800">Inactivo</span>
+                                        {{/if}}
+                                    </span>
+                                    <span><strong>ID:</strong> {{product._id}}</span>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <div class="mb-3">
+                                    <span class="block text-sm font-medium text-gray-700 mb-1">Cantidad</span>
+                                    <span
+                                        class="bg-gray-50 px-4 py-2 rounded-md border font-medium text-lg">{{quantity}}</span>
+                                </div>
+
+                                <div>
+                                    <span class="text-sm text-gray-500">Subtotal</span>
+                                    <p class="text-xl font-bold text-green-600">${{subtotal}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Resumen del Carrito</h2>
+
+        <div class="space-y-3">
+            <div class="flex justify-between items-center text-gray-600">
+                <span>Total de productos:</span>
+                <span>{{products.length}} items</span>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="flex justify-between items-center text-lg font-bold text-gray-800">
+                <span>Total:</span>
+                <span class="text-2xl text-green-600">${{total}}</span>
+            </div>
+        </div>
+    </div>
+
+    {{else}}
+    <div class="bg-white rounded-lg shadow-md p-12 text-center">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m-2.4 0L3 3m0 0l-1.5-1.5M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01">
+                </path>
+            </svg>
+        </div>
+        <h2 class="text-2xl font-semibold text-gray-700 mb-2">Tu carrito está vacío</h2>
+        <p class="text-gray-500 mb-6">Agrega algunos productos para comenzar tu compra</p>
+        <button onclick="window.location.href='/products'"
+            class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg font-medium transition-colors">
+            Ver Productos
+        </button>
+    </div>
+    {{/if}}
+</div>
